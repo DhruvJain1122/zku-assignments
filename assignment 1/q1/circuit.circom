@@ -15,7 +15,6 @@ template HashLeftRight() {
 template MerkleTree(num_leaves) {  
 
    // Declaration of signals.  
-   var num_leaves = num_leaves;
    var num_hash = num_leaves - 1;
    var num_first_hash = num_leaves/2;
    signal input leaves[num_leaves];  
