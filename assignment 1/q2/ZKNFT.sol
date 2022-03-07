@@ -7,9 +7,16 @@ import "@openzeppelin/contracts/utils/Base64.sol";
 
 contract ZKNFT is ERC721 {
     using Strings for uint256;
+    //Event for NewMint
     event NewMint(address sender, address receiver, uint256 tokenId, string tokenURI);
+    
+    //Contract Constructor
     constructor() ERC721("ZKNFT", "ZKN") {}
+    
+    //Stored leaves array
     bytes32[] public leaves;
+    
+    //Merkle Root
     bytes32 public merkleRoot;
     function mint(address to,uint256 tokenId) public{
         _safeMint(to, tokenId);
@@ -26,7 +33,7 @@ contract ZKNFT is ERC721 {
         if (_elements.length == 1) {
             merkleRoot = _elements[0];
         }
-
+        // default value for empty leaves
         uint256[16] memory defaults = [
             0x290decd9548b62a8d60345a988386fc84ba6bc95484008f6362f93160ef3e563,
             0x633dc4d7da7256660a892f8f1604a44b5432649cc8ec5cb3ced4c4e6ac94dd1d,
@@ -102,6 +109,7 @@ contract ZKNFT is ERC721 {
         override
         returns (string memory)
     {
+        //NFT Data
         bytes memory dataURI = abi.encodePacked(
             '{',
                 '"name": "ZKNFTToken #', tokenId.toString(), '"',
